@@ -33,6 +33,7 @@
               @endif
               <div class="card-content collapse show">
                 <div class="card-body card-dashboard">
+                  @if(sizeof($allMeetingData)>0)
                   <table id="meeting_table" class="table table-striped table-bordered base-style">
                     <thead>
                       <tr>
@@ -40,10 +41,15 @@
                         <th>Host</th>
                         <th>Vanue</th>
                         <th>Date</th>
-                        <th>Actions</th>
+                        <th>View</th>
+                        <th>Edit</th>
+                        <th>Add Report</th>
+                        <th >Delete</th>
+                        
                       </tr>
                     </thead>
                     <tbody>
+                      
                       @foreach($allMeetingData as $allMeetingData)
                       <tr>
                         <input type="hidden" id="deleteValue" value="{{$allMeetingData->id}}">
@@ -51,31 +57,29 @@
                         <td>{{$allMeetingData->user->name}}</td>
                         <td>{{$allMeetingData->meeting_vanue}}</td>
                         <td>{{$allMeetingData->date}}</td>
-                        <td class="pr-1"> <a href="{{URL::to('view_meeting/'.$allMeetingData->id)}}" class="btn btn-success">View</a>
-                          <a href="{{URL::to('edit_meeting/'.$allMeetingData->id)}}" class="btn btn-info ">Edit</a>
-                          <a href="{{URL::to('add_report/'.$allMeetingData->id)}}" class="btn btn-warning
-                          ">Add Report</a>
-                          <a class="btn btn-danger">
-                            <form action="{{ route('deleteMeeting', $allMeetingData->id) }}" method="post">
+                        <td class="text-center"><a href="{{URL::to('view_meeting/'.$allMeetingData->id)}}" ><i class="fas fa-eye"></i></a></td>
+                        <td class="text-center"><a href="{{URL::to('edit_meeting/'.$allMeetingData->id)}}"><i class="far fa-edit"></i></a></td>
+                        <td class="text-center"><a href="{{URL::to('add_report/'.$allMeetingData->id)}}"><i class="fas fa-file-alt"></i></a></td>
+                      
+                        <td ><a>
+                          <form action="{{ route('deleteMeeting', $allMeetingData->id) }}" method="post">
                             @csrf
                             @method('DELETE')
                             <input type="submit" onclick="return confirm('Are you sure you want to Remove?');" class="btn-danger" value="Delete">
                             </form>
                           </a>
                         </td>
+
+                        
                       </tr>
                      @endforeach
+                     @else
+                     <center>No Data found!</center>
+                    
                     </tbody>
-                    <tfoot>
-                      <tr>
-                        <th>Meeting Name</th>
-                        <th>Host</th>
-                        <th>Vanue</th>
-                        <th>Date</th>
-                        <th>Action</th>
-                      </tr>
-                    </tfoot>
+                    
                   </table>
+                   @endif
                 </div>
               </div>
             </div>

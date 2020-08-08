@@ -23,6 +23,7 @@ class MeetingController extends Controller
 
 	function AddNewMeeting(Request $request){
 
+		//dd($request);
     	$data = $request->validate([
     		'meeting_name'=> ['required', 'string', 'max:255'],
 			'client_id'=> ['required', 'string',  'max:255'],
@@ -30,7 +31,7 @@ class MeetingController extends Controller
 			'attendences' => ['required'],
 			'date'=> ['required', 'string', 'max:255'],
 			'end_time'=> ['required', 'string', 'max:255'],
-			'meeting_details'=> ['required', 'string', 'max:255'],
+			'meeting_details'=> ['required', 'string'],
 
 		]);
 		//dd($data);
@@ -162,7 +163,9 @@ class MeetingController extends Controller
      	//return $request->meeting_discussion;
      	$data = $request->validate([
     		'meeting_discussion'=> ['nullable', 'string'],
+    		'meeting_discussion_date'=> ['nullable', 'string'],
 		]);
+		//dd($data);
 		$meeting_report_files = $request->file('meeting_report_files');
 		$filname = "";
 		if($meeting_report_files !== null){
@@ -176,12 +179,19 @@ class MeetingController extends Controller
 
 		if($data){
 			Meeting::where('id',$id)->update($data);
-			return redirect()->back()->with('Success', 'meeting report saved successfully');
+			return redirect()->back()->with('Success', 'Meeting report has saved successfully');
 		}
 		else{
-			return redirect()->back()->with('Failed', 'error');
+			return redirect()->back()->with('Failed', 'Meeting report cannot be saved');
 		}
 	}
+
+
+	 public function DownloadReport($file)
+    {
+    	return response()->download('meeting_reports/'.$file);
+    }
+
 
 	//individual meeting view function
 

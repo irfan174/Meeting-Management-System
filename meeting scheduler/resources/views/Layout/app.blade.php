@@ -8,6 +8,7 @@
     <meta name="keywords" content="admin template, robust admin template, dashboard template, flat admin template, responsive admin template, web app, crypto dashboard, bitcoin dashboard">
     <meta name="author" content="PIXINVENT">
     <title>@yield('title')</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
     <link rel="apple-touch-icon" href="{{asset('robust/app-assets/images/ico/apple-icon-120.png')}}">
 
     <link rel="shortcut icon" type="image/x-icon" href="https://pixinvent.com/bootstrap-admin-template/robust/app-assets/images/ico/favicon.ico">
@@ -62,7 +63,7 @@
     <!-- END Custom CSS-->
     
 </head>
-<body class="vertical-layout vertical-menu 2-columns   menu-expanded fixed-navbar" data-open="click" data-menu="vertical-menu" data-col="2-columns header-navbar navbar-expand-md navbar navbar-with-menu fixed-top navbar-semi-dark navbar-shadow main-menu menu-fixed menu-dark menu-accordion    menu-shadow " data-scroll-to-active="true">
+<body class="vertical-layout vertical-menu 2-columns   menu-expanded fixed-navbar" data-open="click" data-menu="vertical-menu" data-col="2-columns">
 
 	@include('Layout.menu')
 
@@ -73,12 +74,13 @@
 
 
 
-
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script type="text/javascript" src="{{asset('js/jquery-3.4.1.min.js')}}"></script>
+    
 
 	<!--BEGIN VENDOR JS-->
     <script src="{{asset('robust/app-assets/vendors/js/vendors.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('robust/app-assets/plugins/dropify/dist/js/dropify.min.js')}}"></script>
 
     <script src="{{asset('robust/app-assets/vendors/js/forms/select/select2.full.min.js')}}"></script>
 
@@ -121,20 +123,20 @@
     <!-- END ROBUST JS-->
 
     <!-- BEGIN PAGE LEVEL JS-->
-    <script src="{{asset('robust/app-assets/js/scripts/pages/dashboard-ecommerce.min.js')}}"></script>
+   
     <!-- END PAGE LEVEL JS-->
 
 
-    
-    <script type="text/javascript" src="{{asset('js/axios.min.js')}}"></script>
 
     <script type="text/javascript" src="{{asset('robust/app-assets/js/scripts/forms/select/form-select2.min.js')}}"></script>
 
     <script type="text/javascript" src="{{asset('robust/app-assets/js/scripts/forms/form-login-register.min.js')}}"></script>
-
-    <script type="text/javascript" src="{{asset('robust/app-assets/plugins/dropify/dist/js/dropify.min.js')}}"></script>
     
     <script type="text/javascript" src="{{asset('robust/app-assets/js/scripts/extensions/fullcalendar.min.js')}}"></script>
+
+     <script src="{{asset('robust/app-assets/js/scripts/pages/dashboard-ecommerce.min.js')}}"></script>
+
+    
 
     @yield('jsCode')
 

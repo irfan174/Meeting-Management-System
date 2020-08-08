@@ -31,8 +31,9 @@
                 {{session('Success')}}
               </div>
               @endif
+              
               @if(session('Failed'))
-              <div class="alert alert-success">
+              <div class="alert alert-danger">
                 {{session('Failed')}}
               </div>
               @endif

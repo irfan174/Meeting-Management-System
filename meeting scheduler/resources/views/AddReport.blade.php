@@ -1,4 +1,4 @@
-@extends('Layout.app3')
+@extends('Layout.app')
 
 @section('content')
 
@@ -26,6 +26,17 @@
                   </ul>
                 </div>
               </div>
+              @if(session('Success'))
+              <div class="alert alert-success">
+                {{session('Success')}}
+              </div>
+              @endif
+              
+              @if(session('Failed'))
+              <div class="alert alert-danger">
+                {{session('Failed')}}
+              </div>
+              @endif
               <div class="card-content collpase show">
                 <div class="card-body">
                   <form action="{{ route('addReport', $meetingReportData->id) }}" method="POST" enctype="multipart/form-data" class="form">
@@ -40,13 +51,19 @@
                           </div>
                         </div>
                       </div>
-                      <div class="form-group">
-                        <label>Select File</label>
+                      <div class="form-group ">
+                         <label>Select File</label><br>
                         <label id="projectinput7" class="file center-block">
                           <input type="file" class="dropify" id="file" name="meeting_report_files"> <span class="file-custom"></span>
                         </label>
+                       
                       </div>
                     </div>
+                    <div class="form-group">
+                       
+                        <input type="hidden" id="meetingreportdateid" class="form-control" name="meeting_discussion_date" value="{{date("d/m/y h:i a")}}">
+                    </div>
+
                     <div class="form-actions right">
                       <button type="button" class="btn btn-warning mr-1"> <i class="ft-x"></i> Cancel</button>
                       <button type="submit" class="btn btn-primary"> <i class="fa fa-check-square-o"></i> Save</button>
@@ -75,6 +92,13 @@
     $(document).ready(function(){
       $('.dropify').dropify();
     }); 
+
+    $("document").ready(function(){
+    setTimeout(function(){
+        $("div.alert").remove();
+    }, 3000 ); // 3 secs
+
+    });
 
 </script>
 

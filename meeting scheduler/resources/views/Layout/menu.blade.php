@@ -4,7 +4,7 @@
         <div class="navbar-header">
           <ul class="nav navbar-nav flex-row">
             <li class="nav-item mobile-menu d-md-none mr-auto"><a class="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i class="ft-menu font-large-1"></i></a></li>
-            <li class="nav-item"><a class="navbar-brand" href="{{ route('home') }}"><img class="brand-logo" alt="robust admin logo" src="{{asset('images/cupcake.jpg')}}">
+            <li class="nav-item"><a class="navbar-brand" href="{{ route('home') }}"><img class="brand-logo" alt="logo" src="{{asset('images/cupcake.jpg')}}">
                 <h3 class="brand-text">Cupcake Exports</h3></a></li>
             <li class="nav-item d-md-none"><a class="nav-link open-navbar-container" data-toggle="collapse" data-target="#navbar-mobile"><i class="fa fa-ellipsis-v"></i></a></li>
           </ul>
@@ -12,7 +12,7 @@
         <div class="navbar-container content">
           <div class="collapse navbar-collapse" id="navbar-mobile">
             <ul class="nav navbar-nav mr-auto float-left">
-              <li class="nav-item d-none d-md-block"><a class="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i class="ft-menu">         </i></a></li>
+              <li class="nav-item d-none d-md-block"><a class="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i class="ft-menu"></i></a></li>
               
               <li class="nav-item d-none d-md-block"><a class="nav-link nav-link-expand" href="#"><i class="ficon ft-maximize"></i></a></li>
               <li class="nav-item nav-search"><a class="nav-link nav-link-search" href="#"><i class="ficon ft-search"></i></a>
@@ -48,10 +48,10 @@
       </div>
 </nav>
 <!-- Left side bar menu-->
-<div class="main-menu menu-fixed menu-dark menu-accordion menu-shadow " data-scroll-to-active="true">
+<div class="main-menu menu-fixed menu-dark menu-accordion    menu-shadow " data-scroll-to-active="true">
       <div class="main-menu-content">
         <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
-          <li class=" nav-item"><a href="#"><i class="icon-layers"></i><span class="menu-title" data-i18n="nav.page_layouts.main">Meeting</span></a>
+          <li class=" nav-item"><a href="#"><i class="fas fa-handshake"></i><span class="menu-title" data-i18n="nav.page_layouts.main">Meeting</span></a>
             <ul class="menu-content">
               <li><a class="menu-item" href="{{url('/addmeeting')}}" data-i18n="nav.page_layouts.1_column">Add Meeting</a>
               </li>
@@ -64,9 +64,9 @@
               </li>
               <li><a class="menu-item" href="{{url('/eventcalender')}}" data-i18n="nav.page_layouts.fixed_navbar">Event Calender</a>
               </li>
-              <li><a class="menu-item" href="{{url('/users')}}" data-i18n="nav.page_layouts.fixed_navbar">Users</a>
-              </li>
             </ul>
-          </li> 
+          </li>
+          <li class=" nav-item"><a href="{{url('/users')}}"><i class="fas fa-users"></i><span class="menu-title" data-i18n="nav.page_layouts.main">Users</span></a>
+          </li>  
       </div>
 </div>

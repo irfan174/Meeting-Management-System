@@ -45,7 +45,8 @@
                         <th>Host</th>
                         <th>Vanue</th>
                         <th>Date</th>
-                        <th>Actions</th>
+                        <th >View</th>
+                        <th>Delete</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -55,26 +56,21 @@
                         <td>{{$allMeetingData->user->name}}</td>
                         <td>{{$allMeetingData->meeting_vanue}}</td>
                         <td>{{$allMeetingData->date}}</td>
-                        <td class="pr-1"> <a href="{{URL::to('view_meeting/'.$allMeetingData->id)}}" class="btn btn-success">View</a>
-                          <a class="btn btn-danger ml-1">
-                            <form action="{{ route('deleteMeeting', $allMeetingData->id) }}" method="post">
+                        <td class="text-center"><a href="{{URL::to('view_meeting/'.$allMeetingData->id)}}" ><i class="fas fa-eye"></i></a></td>
+                         <td><a>
+                          <form action="{{ route('deleteMeeting', $allMeetingData->id) }}" method="post">
                             @csrf
                             @method('DELETE')
                             <input type="submit" onclick="return confirm('Are you sure you want to Remove?');" class="btn-danger" value="Delete">
                             </form>
                           </a>
                         </td>
+                        
                       </tr>
                     @endforeach
                   </tbody>
                     <tfoot>
-                      <tr>
-                        <th>Meeting Name</th>
-                        <th>Host</th>
-                        <th>Vanue</th>
-                        <th>Date</th>
-                        <th>Action</th>
-                      </tr>
+                      
                     </tfoot>
                   </table>
                 </div>

@@ -47,3 +47,5 @@ Route::get('/editProfile/{id}', 'MeetingController@EditProfile');
 Route::put('/update-user-profile/{id}', 'MeetingController@UpdateUserprofile')->name('updateUserProfile');
 
 Route::get('/eventcalender', 'MeetingController@EventCalender');
+
+Route::get('/file_download/{meeting_report_files}', 'MeetingController@DownloadReport');

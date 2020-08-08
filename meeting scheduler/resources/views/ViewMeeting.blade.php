@@ -29,7 +29,11 @@
                         <label class="col-md-3 label-control" for="projectinput1"><strong>Meeting Name</strong>
                         </label>
                         <div class="col-md-9">
+                          @if($viewData->meeting_name)
                           <h4>{{$viewData->meeting_name}}</h4>
+                          @else
+                          <h4>No Name found!</h4>
+                          @endif
                         </div>
                       </div>
                       <div class="form-group row">
@@ -82,13 +86,6 @@
                         </div>
                       </div>
                       <div class="form-group row">
-                        <label class="col-md-3 label-control" for="projectinput1"><strong>Meeting Discussion</strong>
-                        </label>
-                        <div class="col-md-9">
-                          <h4>{{$viewData->meeting_discussion}}</h4>
-                        </div>
-                      </div>
-                      <div class="form-group row">
                         <label class="col-md-3 label-control" for="projectinput1"><strong>Meeting Status</strong>
                         </label>
                         <div class="col-md-9">
@@ -106,6 +103,40 @@
           </div>
         </div>
       </section>
+      
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header" style="padding-bottom: 10px">
+              @if($viewData->meeting_discussion)
+              <h4 class=""><strong>Meeting Discussion</strong></h4>
+              <br>
+              <h4 class="card-title">{{$viewData->meeting_discussion_date}}</h4>
+              <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
+                <div class="heading-elements">
+                <ul class="list-inline mb-0">
+                  <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="card-content collapse show">
+              <div class="card-body" style="padding-top: 10px">
+                {{ $viewData->meeting_discussion}}
+              </div>
+              @if($viewData->meeting_report_files)
+              <div class="card-body" style="padding-top: 10px">
+                <a href="{{URL::to('file_download/'.$viewData->meeting_report_files)}}" class="btn btn-success ">Download Report</a>
+                @else
+                <h4 class="card-body">No File has Attached!</h4>
+                @endif
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      @else
+      <h4>No Discussion is added!</h4>
+       @endif
     </div>
   </div>
 </div>
