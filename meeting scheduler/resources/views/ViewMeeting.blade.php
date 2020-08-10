@@ -89,7 +89,12 @@
                         <label class="col-md-3 label-control" for="projectinput1"><strong>Meeting Status</strong>
                         </label>
                         <div class="col-md-9">
-                          <h4>{{$viewData->meeting_status}}</h4>
+                            @php
+                                if($viewData->meeting_status == 1) { @endphp
+                                <h4>Active</h4>
+                            @php } else if($viewData->meeting_status == 0)   { @endphp
+                                <h4>Inactive</h4>
+                            @php  } @endphp
                         </div>
                       </div>
                     </div>
@@ -103,7 +108,7 @@
           </div>
         </div>
       </section>
-      
+
       <div class="row">
         <div class="col-md-12">
           <div class="card">
@@ -147,7 +152,7 @@
 @section('jsCode')
 
 <script type="text/javascript">
-    
+
 
 </script>
 

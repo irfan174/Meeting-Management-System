@@ -39,7 +39,7 @@
               <div class="card-content collpase show">
                 <div class="card-body">
                   <form action="{{ route('updateMeeting',$editViewData->id) }}" method="POST" class="form">
-                    @csrf 
+                    @csrf
                     @method('PUT')
                     <div class="form-body">
                       <div class="form-group">
@@ -95,7 +95,9 @@
                         <div class="position-relative has-icon-left">
                           <select class="select2 form-control" multiple="multiple" name="attendences[]">
                             @foreach ($attendences as $users)
-                            <option value="{{$users->id}}" {{ ($users->id == $editViewData->attendences) ? 'selected' : ''}} >{{$users->name}}</option>@endforeach</select>
+                            <option value="{{$users->id}}">{{$users->name}}</option>
+                            @endforeach
+                          </select>
                         </div>
                       </div>
 
@@ -134,28 +136,29 @@
                         </div>
                       </div>
 
-                      <div class="form-group">
-                        <label for="attendences">Meeting Status</label>
-                        <div class="position-relative has-icon-left">
-                          <input type="text" id="meetingnameid" class="form-control @error('meeting_status') is-invalid @enderror" name="meeting_status" value="{{ $editViewData->meeting_status }}">
-                          <div class="form-control-position"> <i class="ft-user"></i>
-                          </div>
-                        </div>
-                        @error('attendences')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
-                      </div>
+{{--                      <div class="form-group">--}}
+{{--                        <label for="attendences">Meeting Status</label>--}}
+{{--                        <div class="position-relative has-icon-left">--}}
+{{--                          <input type="text" id="meetingnameid" class="form-control @error('meeting_status') is-invalid @enderror" name="meeting_status" value="{{ $editViewData->meeting_status }}">--}}
+{{--                          <div class="form-control-position"> <i class="ft-user"></i>--}}
+{{--                          </div>--}}
+{{--                        </div>--}}
+{{--                        @error('attendences')--}}
+{{--                        <div class="alert alert-danger">{{ $message }}</div>--}}
+{{--                        @enderror--}}
+{{--                      </div>--}}
 
                       <div class="form-group">
                         <label for="meetingvanue">Meeting Status</label>
                         <div class="position-relative has-icon-left">
-                          <select class="select2 form-control" multiple="multiple" name="meeting_status">
+                          <select class="form-control" name="meeting_status">
+                              <option value="1" {{$editViewData->meeting_status == 1  ? 'selected' : ''}}>Active</option>
                             <option value="1">Active</option>
                             <option value="0">Closed</option>
                           </select>
                         </div>
                       </div>
-                      
+
                     </div>
                     <div class="form-actions right">
                       <button type="button" class="btn btn-warning mr-1"> <i class="ft-x"></i> Cancel</button>

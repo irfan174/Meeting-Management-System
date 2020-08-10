@@ -34,7 +34,7 @@
               <div class="card-content collapse show">
                 <div class="card-body card-dashboard">
                   @if(sizeof($allMeetingData)>0)
-                  <table id="meeting_table" class="table table-striped table-bordered base-style">
+                  <table id="meeting_table" class="table table-striped table-bordered base-style zero-configuration">
                     <thead>
                       <tr>
                         <th>Meeting Name</th>

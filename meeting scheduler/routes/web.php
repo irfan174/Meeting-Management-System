@@ -18,8 +18,16 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-//Route::get('/registration', 'MeetingController@register');
-Route::get('/users', 'UsersController@UsersIndex')->name('users');
+
+//User routes
+
+Route::get('/users', 'UserController@UsersIndex')->name('users');
+Route::get('/editProfile/{id}', 'UserController@EditProfile');
+Route::put('/update-user-profile/{id}', 'UserController@UpdateUserprofile')->name('updateUserProfile');
+
+
+
+//Meeting routes
 
 Route::get('/addmeeting', 'MeetingController@index');
 Route::post('/save-meeting', 'MeetingController@AddNewMeeting')->name('saveMeeting');
@@ -42,9 +50,6 @@ Route::post('/add-report/{id}', 'MeetingController@UploadMeetingReport')->name('
 
 Route::get('/individual', 'MeetingController@IndividualMeetings');
 Route::get('/individualMeetings/{id}', 'MeetingController@IndividualMeetingsData')->name('individualMeetings');
-
-Route::get('/editProfile/{id}', 'MeetingController@EditProfile');
-Route::put('/update-user-profile/{id}', 'MeetingController@UpdateUserprofile')->name('updateUserProfile');
 
 Route::get('/eventcalender', 'MeetingController@EventCalender');
 

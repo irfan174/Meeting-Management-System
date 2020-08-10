@@ -28,7 +28,7 @@
               </div>
               <div class="card-content collapse show">
                 <div class="card-body card-dashboard">
-                  <table id="meeting_table" class="table table-striped table-bordered base-style">
+                  <table id="meeting_table" class="table table-striped table-bordered base-style zero-configuration">
                     <thead>
                       <tr>
                         <th>Meeting Name</th>
@@ -54,18 +54,6 @@
                       </tr>
                     @endforeach
                     </tbody>
-                    <tfoot>
-                      <tr>
-                        <th>Meeting Name</th>
-                        <th>Host</th>
-                        <th>Vanue</th>
-                        <th>Attendences</th>
-                        <th>Date</th>
-                        
-                        <th>End Time</th>
-                        <th>Action</th>
-                      </tr>
-                    </tfoot>
                   </table>
                 </div>
               </div>

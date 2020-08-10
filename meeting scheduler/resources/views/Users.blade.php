@@ -28,7 +28,7 @@
               </div>
               <div class="card-content collapse show">
                 <div class="card-body card-dashboard">
-                  <table id="UserDt" class="table table-striped table-bordered base-style" cellspacing="0" width="100%">
+                  <table id="UserDt" class="table table-striped table-bordered base-style zero-configuration" cellspacing="0" width="100%">
                     <thead>
                       <tr>
                         <th class="th-sm">Name</th>

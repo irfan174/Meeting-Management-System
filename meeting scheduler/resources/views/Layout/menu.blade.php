@@ -48,25 +48,37 @@
       </div>
 </nav>
 <!-- Left side bar menu-->
-<div class="main-menu menu-fixed menu-dark menu-accordion    menu-shadow " data-scroll-to-active="true">
+<div class="main-menu menu-fixed menu-dark menu-accordion menu-shadow "    data-scroll-to-active="true">
       <div class="main-menu-content">
         <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
           <li class=" nav-item"><a href="#"><i class="fas fa-handshake"></i><span class="menu-title" data-i18n="nav.page_layouts.main">Meeting</span></a>
             <ul class="menu-content">
-              <li><a class="menu-item" href="{{url('/addmeeting')}}" data-i18n="nav.page_layouts.1_column">Add Meeting</a>
+             
+              <li class="active"><a class="menu-item" href="{{url('/addmeeting')}}" data-i18n="nav.page_layouts.1_column">Add Meeting</a>
               </li>
-              <li><a class="menu-item" href="{{url('/newmeeting')}}" data-i18n="nav.page_layouts.2_columns">New Meeting</a>
+              <li ><a class="menu-item" href="{{url('/newmeeting')}}" data-i18n="nav.page_layouts.2_columns">New Meeting</a>
               </li>
               <li class="navigation-divider"></li>
-              <li><a class="menu-item" href="{{url('/meetinghistory')}}" data-i18n="nav.page_layouts.fixed_navbar">Meeting History</a>
+              <li ><a class="menu-item" href="{{url('/meetinghistory')}}" data-i18n="nav.page_layouts.fixed_navbar">Meeting History</a>
               </li>
-              <li><a class="menu-item" href="{{url('/individual')}}" data-i18n="nav.page_layouts.fixed_navbar">Individual Meetings</a>
+              <li ><a class="menu-item" href="{{url('/individual')}}" data-i18n="nav.page_layouts.fixed_navbar">Individual Meetings</a>
               </li>
-              <li><a class="menu-item" href="{{url('/eventcalender')}}" data-i18n="nav.page_layouts.fixed_navbar">Event Calender</a>
+              <li ><a class="menu-item" href="{{url('/eventcalender')}}" data-i18n="nav.page_layouts.fixed_navbar">Event Calender</a>
               </li>
             </ul>
           </li>
           <li class=" nav-item"><a href="{{url('/users')}}"><i class="fas fa-users"></i><span class="menu-title" data-i18n="nav.page_layouts.main">Users</span></a>
           </li>  
+
+        </ul>  
       </div>
 </div>
+
+<script>
+
+  /*$(".menu-content a").on("click", function(){
+     $(".menu-content").find(".active").removeClass("active");
+     $(this).parent().addClass("active");
+  });*/
+
+</script>

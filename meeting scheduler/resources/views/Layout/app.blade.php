@@ -18,12 +18,15 @@
     <!-- BEGIN VENDOR CSS-->
     <link rel="stylesheet" type="text/css" href="{{asset('robust/app-assets/css/vendors.min.css')}}">
 
+    <!-- datatable css-->
+    <link rel="stylesheet" type="text/css" href="{{asset('robust/app-assets/vendors/css/tables/datatable/datatables.min.css')}}">
+
     <link rel="stylesheet" type="text/css" href="{{asset('robust/app-assets/vendors/css/forms/selects/select2.min.css')}}">
 
     <!-- dropify CSS-->
     <link rel="stylesheet" type="text/css" href="{{asset('robust/app-assets/plugins/dropify/dist/css/dropify.min.css')}}">
 
-    <!-- datatable css-->
+    
     <link rel="stylesheet" type="text/css" href="{{asset('robust/app-assets/vendors/css/charts/jquery-jvectormap-2.0.3.css')}}">
 
     <link rel="stylesheet" type="text/css" href="{{asset('robust/app-assets/vendors/css/charts/morris.css')}}">
@@ -32,18 +35,13 @@
 
     <link rel="stylesheet" type="text/css" href="{{asset('robust/app-assets/vendors/css/weather-icons/climacons.min.css')}}">
 
-    <!-- END VENDOR CSS-->
     <link rel="stylesheet" type="text/css" href="{{asset('robust/app-assets/css/pages/login-register.min.css')}}">
 
-    <!-- BEGIN ROBUST CSS-->
 
     <link rel="stylesheet" type="text/css" href="{{asset('robust/app-assets/css/app.min.css')}}">
 
     <link rel="stylesheet" type="text/css" href="{{asset('robust/app-assets/vendors/css/calendars/fullcalendar.min.css')}}">
 
-    <!-- END ROBUST CSS-->
-
-    <!-- BEGIN Page Level CSS-->
 
     <link rel="stylesheet" type="text/css" href="{{asset('robust/app-assets/css/core/menu/menu-types/vertical-menu.min.css')}}">
 
@@ -55,15 +53,12 @@
 
     <link rel="stylesheet" type="text/css" href="{{asset('robust/app-assets/css/plugins/calendars/fullcalendar.min.css')}}">
 
-    <!-- END Page Level CSS-->
-
-    <!-- BEGIN Custom CSS-->
-
-    <link rel="stylesheet" type="text/css" href="{{asset('robust/assets/css/style.css')}}">
     <!-- END Custom CSS-->
+    <link rel="stylesheet" type="text/css" href="{{asset('robust/assets/css/style.css')}}">
+    
     
 </head>
-<body class="vertical-layout vertical-menu 2-columns   menu-expanded fixed-navbar" data-open="click" data-menu="vertical-menu" data-col="2-columns">
+<body class="vertical-layout vertical-menu 2-columns menu-expanded fixed-navbar pace-activity" data-open="click" data-menu="vertical-menu" data-col="2-columns">
 
 	@include('Layout.menu')
 
@@ -72,14 +67,13 @@
 
 
 
-
-
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     
-
-	<!--BEGIN VENDOR JS-->
     <script src="{{asset('robust/app-assets/vendors/js/vendors.min.js')}}"></script>
+
+    <script src="{{asset('robust/app-assets/vendors/js/tables/datatable/datatables.min.js')}}"></script>
+
     <script type="text/javascript" src="{{asset('robust/app-assets/plugins/dropify/dist/js/dropify.min.js')}}"></script>
 
     <script src="{{asset('robust/app-assets/vendors/js/forms/select/select2.full.min.js')}}"></script>
@@ -88,10 +82,9 @@
 
     <script src="{{asset('robust/app-assets/vendors/js/extensions/fullcalendar.min.js')}}"></script>
 
-    <!-- BEGIN PAGE VENDOR JS-->
     <script src="{{asset('robust/app-assets/vendors/js/charts/raphael-min.js')}}"></script>
 
-    <script src="{{asset('robust/app-assets/vendors/js/charts/morris.min.js')}}"></script>
+    
 
     <script src="{{asset('robust/app-assets/vendors/js/charts/chart.min.js')}}"></script>
 
@@ -109,24 +102,11 @@
 
     <script src="{{asset('robust/app-assets/vendors/js/extensions/unslider-min.js')}}"></script>
 
-    <!-- END PAGE VENDOR JS-->
-    
-    <!-- BEGIN ROBUST JS-->
     <script src="{{asset('robust/app-assets/js/core/app-menu.min.js')}}"></script>
 
     <script src="{{asset('robust/app-assets/js/core/app.min.js')}}"></script>
 
     <script src="{{asset('robust/app-assets/js/scripts/customizer.min.js')}}"></script>
-
-    
-
-    <!-- END ROBUST JS-->
-
-    <!-- BEGIN PAGE LEVEL JS-->
-   
-    <!-- END PAGE LEVEL JS-->
-
-
 
     <script type="text/javascript" src="{{asset('robust/app-assets/js/scripts/forms/select/form-select2.min.js')}}"></script>
 
@@ -134,7 +114,11 @@
     
     <script type="text/javascript" src="{{asset('robust/app-assets/js/scripts/extensions/fullcalendar.min.js')}}"></script>
 
-     <script src="{{asset('robust/app-assets/js/scripts/pages/dashboard-ecommerce.min.js')}}"></script>
+    
+
+    <script src="{{asset('robust/app-assets/js/scripts/tables/datatables/datatable-basic.min.js')}}"></script>
+
+     
 
     
 

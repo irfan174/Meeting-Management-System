@@ -21,11 +21,11 @@ class Meetings extends Migration
             $table->string('host_id');
             $table->string('attendences');
             $table->string('date');
-            $table->string('start_time');
+            $table->string('start_time')->nullable();
             $table->string('end_time');
             $table->string('meeting_details');
             $table->timestamps();
-           
+
         });
     }
 

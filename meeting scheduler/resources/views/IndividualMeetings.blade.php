@@ -57,7 +57,7 @@
 
 <script type="text/javascript">
     $(document).ready(function(){
-      $('#search').on("click", function(){
+      $('#search').on("click", function(e){
         $userId = document.getElementById("attendences").value;
         //alert($userId);
         $.ajax({

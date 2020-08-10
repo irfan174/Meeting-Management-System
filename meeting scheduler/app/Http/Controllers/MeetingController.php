@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use Calendar;
 use App\Meeting;
 use App\User;
@@ -34,9 +33,17 @@ class MeetingController extends Controller
 			'meeting_details'=> ['required', 'string'],
 
 		]);
-		//dd($data);
+		$date = $data['date'];
+		$endTime = $data['end_time'];
+		$formatDate = date('Y-m-d, h:i a', strtotime($date));
+		$formatEndTime = date('h:i a', strtotime($endTime));
+		//dd($formatendTime);
 		if($data){
+			
+			//dd($data['date']);
 			$data['host_id'] = Auth::user()->id;
+			$data['date'] = $formatDate;
+			$data['end_time'] = $formatEndTime;
 			$data['meeting_status'] = 1;
 			$data['attendences'] = json_encode($data['attendences']);
 			//dd($data);
@@ -60,8 +67,8 @@ class MeetingController extends Controller
     //new meetings view function
 
     function NewMeetings(){
-		$allMeetingData = Meeting::whereDate('date', '>=', date('Y-m-d'))->with('user')->get();
-
+		$allMeetingData = Meeting::whereDate('date', '>=', now())->with('user')->get();
+		$jsonData = json_decode($allMeetingData);
 		return view('NewMeetings', compact('allMeetingData'));
     }
 
@@ -92,9 +99,9 @@ class MeetingController extends Controller
 		$editViewData = Meeting::findorfail($id);
 		$meetingStatus = Meeting::select('id','meeting_status')->get();
 		$attendences = User::select('id','name')->get();
-		/*echo "<pre>";
-		print_r($editViewData);
-		exit();*/
+		$attendences2= array();
+
+		//dd($editViewData);
 		return view('EditMeeting', compact('editViewData', 'attendences', 'meetingStatus'));
     }
 
@@ -109,11 +116,17 @@ class MeetingController extends Controller
 			'attendences' => ['required'],
 			'date'=> ['required', 'string', 'max:255'],
 			'end_time'=> ['required', 'string', 'max:255'],
-			'meeting_details'=> ['required', 'string', 'max:255'],
-			'meeting_status'=> ['required'],
+			'meeting_details'=> ['required', 'string'],
+			'meeting_status'=> ['required', 'int'],
 		]);
 		//dd($data);
+		$date = $data['date'];
+		$endTime = $data['end_time'];
+		$formatDate = date('Y-m-d, h:i a', strtotime($date));
+		$formatEndTime = date('h:i a', strtotime($endTime));
 		if($data){
+			$data['date'] = $formatDate;
+			$data['end_time'] = $formatEndTime;
 			$data['attendences'] = json_encode($data['attendences']);
 			//$data['meeting_status'] = json_encode($data['meeting_status']);
 			$updateMeeting = Meeting::where('id',$id)->update($data);
@@ -205,131 +218,21 @@ class MeetingController extends Controller
 
     public function IndividualMeetingsData($id)
     {
-    	
-    	$searchIndividualData = Meeting::where('host_id',$id)->whereDate('date', '>=', date('Y-m-d'))->orderBy('date','asc')->get();
+    	$allMeetingData = Meeting::with('user')->get();
+    	//dd($allMeetingData->all());
+    	$items = strval($id);
+    	//dd($items);
+    	$jsonData = json_encode($items);
+    	//dd($jsonData);
+    	$searchIndividualData = Meeting::where('host_id',$id)
+    				->orWhere('attendences','LIKE',"%$jsonData%")
+			    	->whereDate('date', '>=', date('Y-m-d'))->orderBy('date','asc')
+			    	->get();
     	//dd($searchIndividualData->all());
 
         return view('GetIndividialmeetingData', compact('searchIndividualData'));
     }
 
-    //edit user profile view function
-
-    function EditProfile($id){
-    	$editUserData = User::findorfail($id);
-		return view('EditUserProfile', compact('editUserData'));
-    }
-
-    //update user profile function
-
-    function UpdateUserprofile(Request $request,$id){
-    	//dd($request->all());
-    	$viewUserData = User::findorfail($id);
-    	$userEmail = $viewUserData->email;
-    	$userPass = $viewUserData->password;
-    	$reqUserEmail = $request->email;
-    	$reqUserPass = $request->password;
-    	//dd($reqUserPass);
-    	if($reqUserPass == null){
-			$reqUserPass = Auth::user()->password;
-    	}
-    	//dd($reqUserPass);
-    	if($userEmail == $reqUserEmail ){
-    		//dd($reqUserPass);
-    		$data = $request->validate([
-    		'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255'],
-            'dasignation' => ['required', 'string', 'max:255'],
-            
-			]);
- 			if($userPass == $reqUserPass){
-    			$data = $request->validate([
-    			'name' => ['required', 'string', 'max:255'],
-            	'email' => ['required', 'string', 'email', 'max:255'],
-            	'dasignation' => ['required', 'string', 'max:255'],
-            	
-				]);
-				//dd($data);
-				if($data){
-				User::where('id',$id)->update($data);
-
-				return redirect()->back()->with('Success', 'User data has updated successfully');
-				}
-				else{
-					return redirect()->back()->with('Failed', 'error');
-				}
-    		}
-    		
-    		else{
-    			$data = $request->validate([
-    			'name' => ['required', 'string', 'max:255'],
-            	'email' => ['required', 'string', 'email', 'max:255'],
-            	'dasignation' => ['required', 'string', 'max:255'],
-            	'password' => ['required', 'string', 'min:8', 'confirmed'],
-				]);
-				//dd($data);
-				//$viewUserData->password = Hash::make($data['password']);
-				//dd($viewUserData->password);
-				if($data){
-					//dd($data);
-					//$viewUserData->password = Hash::make($data['password']);
-					//dd($viewUserData->password);
-					//dd($data);
-					User::where('id',$id)->update([
-						'name' => $data['name'],
-			            'email' => $data['email'],
-			            'dasignation' => $data['dasignation'],
-			            'password' => Hash::make($data['password']),
-					]);
-					return redirect()->back()->with('Success', 'User data updated successfully');
-				}
-				else{
-					return redirect()->back()->with('Failed', 'error');
-				}
-    		}
-    	}
-    	else{
-
-    		if($userPass == $reqUserPass){
-    			$data = $request->validate([
-    			'name' => ['required', 'string', 'max:255'],
-            	'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            	'dasignation' => ['required', 'string', 'max:255'],
- 
-				]);
-				//dd($data);
-				if($data){
-				User::where('id',$id)->update($data);
-				return redirect()->back()->with('Success', 'User data updated successfully');
-				}
-				else{
-					return redirect()->back()->with('Failed', 'error');
-				}
-    		}
-    		
-    		else{
-    			$data = $request->validate([
-    			'name' => ['required', 'string', 'max:255'],
-            	'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            	'dasignation' => ['required', 'string', 'max:255'],
-            	'password' => ['required', 'string', 'min:8', 'confirmed'],
-				]);
-				//dd($data);
-				if($data){
-				User::where('id',$id)->update([
-						'name' => $data['name'],
-			            'email' => $data['email'],
-			            'dasignation' => $data['dasignation'],
-			            'password' => Hash::make($data['password']),
-					]);
-
-				return redirect()->back()->with('Success', 'User data updated successfully');
-				}
-				else{
-					return redirect()->back()->with('Failed', 'error');
-				}
-    		}
-    	}
-    }
 
 	//calendar event for meetings function
 
