@@ -67,18 +67,21 @@
               </li>
             </ul>
           </li>
-          <li class=" nav-item"><a href="{{url('/users')}}"><i class="fas fa-users"></i><span class="menu-title" data-i18n="nav.page_layouts.main">Users</span></a>
+          <li id="userNav" class=" nav-item"><a href="{{url('/users')}}"><i class="fas fa-users"></i><span class="menu-title" data-i18n="nav.page_layouts.main">Users</span></a>
           </li>  
 
         </ul>  
       </div>
 </div>
 
-<script>
+<script type="text/javascript">
 
-  /*$(".menu-content a").on("click", function(){
-     $(".menu-content").find(".active").removeClass("active");
-     $(this).parent().addClass("active");
-  });*/
+
+    $("#userNav").on("click", function(){
+      $(".menu-item").find(".active").removeClass("active");
+    });
+
+
+  
 
 </script>

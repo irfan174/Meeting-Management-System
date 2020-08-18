@@ -52,10 +52,11 @@
                     <tbody>
                       @foreach($allMeetingData as $allMeetingData)
                       <tr>
+                        @php $formatDate = date('d-m-Y, h:i a', strtotime($allMeetingData->date)); @endphp
                         <td>{{$allMeetingData->meeting_name}}</td>
                         <td>{{$allMeetingData->user->name}}</td>
                         <td>{{$allMeetingData->meeting_vanue}}</td>
-                        <td>{{$allMeetingData->date}}</td>
+                        <td>{{$formatDate}}</td>
                         <td class="text-center"><a href="{{URL::to('view_meeting/'.$allMeetingData->id)}}" ><i class="fas fa-eye"></i></a></td>
                          <td><a>
                           <form action="{{ route('deleteMeeting', $allMeetingData->id) }}" method="post">

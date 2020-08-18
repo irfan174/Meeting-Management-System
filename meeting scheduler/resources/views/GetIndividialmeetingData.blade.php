@@ -13,7 +13,7 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h4 class="card-title">All Meetings Of User </h4>
+                <h4 class="card-title">All meetings of <strong>{{ $getName->name }}</strong> </h4>
                 <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
                 <div class="heading-elements">
                   <ul class="list-inline mb-0">
@@ -34,7 +34,6 @@
                         <th>Meeting Name</th>
                         <th>Host</th>
                         <th>Vanue</th>
-                        <th>Attendences</th>
                         <th>Date & Start Time</th>
                         <th>End Time</th>
                         <th>Action</th>
@@ -43,12 +42,14 @@
                     <tbody>
                     @foreach($searchIndividualData as $searchIndividualData)
                       <tr>
+                        @php $formatDate = date('d-m-Y, h:i a', strtotime($searchIndividualData->date));
+                        $formatEndTime = date('h:i a', strtotime($searchIndividualData->end_time)); 
+                        @endphp
                         <td>{{$searchIndividualData->meeting_name}}</td>
                         <td>{{$searchIndividualData->user->name}}</td>
                         <td>{{$searchIndividualData->meeting_vanue}}</td>
-                        <td>{{$searchIndividualData->attendences}}</td>
-                        <td>{{$searchIndividualData->date}}</td>
-                        <td>{{$searchIndividualData->end_time}}</td>
+                        <td>{{$formatDate}}</td>
+                        <td>{{$formatEndTime}}</td>
                         <td class="pr-1"> <a href="{{URL::to('view_meeting/'.$searchIndividualData->id)}}" class="btn btn-success">View</a>
                         </td>
                       </tr>
@@ -70,7 +71,7 @@
 @section('jsCode')
 
 <script type="text/javascript">
-    
+
 
 </script>
 

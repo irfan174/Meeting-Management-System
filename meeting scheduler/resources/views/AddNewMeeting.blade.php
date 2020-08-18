@@ -77,7 +77,8 @@
                         <div class="position-relative has-icon-left">
                           <select class="select2 form-control" multiple="multiple" name="attendences[]">
                             @foreach ($attendences as $users)
-                            <option value="{{$users->id}}">{{$users->name}}</option>@endforeach
+                            <option value="{{$users->id}}">{{$users->name}}</option>
+                            @endforeach
                           </select>
                         </div>
                       </div>

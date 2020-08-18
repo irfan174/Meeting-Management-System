@@ -64,11 +64,15 @@
                           <h4>{{$user_name}}</h4>
                         </div>
                       </div>
+                      @php 
+                      $formatDate = date('d-m-Y, h:i a', strtotime($viewData->date));
+                      $formatEndTime = date('h:i a', strtotime($viewData->end_time)); 
+                      @endphp
                       <div class="form-group row">
                         <label class="col-md-3 label-control" for="projectinput1"><strong>Start Date & Time</strong>
                         </label>
                         <div class="col-md-9">
-                          <h4>{{$formatStartTime}}</h4>
+                          <h4>{{$formatDate}}</h4>
                         </div>
                       </div>
                       <div class="form-group row">

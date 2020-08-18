@@ -78,28 +78,18 @@
                         @enderror
                       </div>
 
-                      <div class="form-group">
-                        <label for="attendences">Co-workers</label>
-                        <div class="position-relative has-icon-left">
-                          <input type="text" id="meetingnameid" class="form-control @error('attendences') is-invalid @enderror" name="attendences" value="{{ $editViewData->attendences }}">
-                          <div class="form-control-position"> <i class="ft-user"></i>
-                          </div>
-                        </div>
-                        @error('attendences')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
-                      </div>
 
-                      <div class="form-group">
-                        <label for="meetingvanue">Co-workers</label>
-                        <div class="position-relative has-icon-left">
-                          <select class="select2 form-control" multiple="multiple" name="attendences[]">
-                            @foreach ($attendences as $users)
-                            <option value="{{$users->id}}">{{$users->name}}</option>
-                            @endforeach
-                          </select>
+                        <div class="form-group">
+                            <label for="meetingvanue">Co-workers</label>
+                            <div class="position-relative has-icon-left">
+                                @php $selected = json_decode($editViewData->attendences); @endphp
+                                <select class="select2 form-control" multiple="multiple" name="attendences[]">
+                                    @foreach ($attendences as $users)
+                                        <option value="{{ $users->id }}" {{ (in_array($users->id, $selected)) ? 'selected' : '' }}>{{ $users->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
-                      </div>
 
                       <div class="row">
                         <div class="col-md-6">
@@ -136,25 +126,12 @@
                         </div>
                       </div>
 
-{{--                      <div class="form-group">--}}
-{{--                        <label for="attendences">Meeting Status</label>--}}
-{{--                        <div class="position-relative has-icon-left">--}}
-{{--                          <input type="text" id="meetingnameid" class="form-control @error('meeting_status') is-invalid @enderror" name="meeting_status" value="{{ $editViewData->meeting_status }}">--}}
-{{--                          <div class="form-control-position"> <i class="ft-user"></i>--}}
-{{--                          </div>--}}
-{{--                        </div>--}}
-{{--                        @error('attendences')--}}
-{{--                        <div class="alert alert-danger">{{ $message }}</div>--}}
-{{--                        @enderror--}}
-{{--                      </div>--}}
-
                       <div class="form-group">
                         <label for="meetingvanue">Meeting Status</label>
                         <div class="position-relative has-icon-left">
                           <select class="form-control" name="meeting_status">
-                              <option value="1" {{$editViewData->meeting_status == 1  ? 'selected' : ''}}>Active</option>
-                            <option value="1">Active</option>
-                            <option value="0">Closed</option>
+                              <option value="1" @php if ($editViewData->meeting_status==1) { echo ' selected="selected"'; } @endphp>Active</option>
+                              <option value="0" @php if ($editViewData->meeting_status==0) { echo ' selected="selected"'; } @endphp>Inactive</option>
                           </select>
                         </div>
                       </div>

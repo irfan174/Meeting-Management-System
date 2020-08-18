@@ -52,11 +52,12 @@
                       
                       @foreach($allMeetingData as $allMeetingData)
                       <tr>
+                        @php $formatDate = date('d-m-Y, h:i a', strtotime($allMeetingData->date)); @endphp
                         <input type="hidden" id="deleteValue" value="{{$allMeetingData->id}}">
                         <td>{{$allMeetingData->meeting_name}}</td>
                         <td>{{$allMeetingData->user->name}}</td>
                         <td>{{$allMeetingData->meeting_vanue}}</td>
-                        <td>{{$allMeetingData->date}}</td>
+                        <td>{{$formatDate}}</td>
                         <td class="text-center"><a href="{{URL::to('view_meeting/'.$allMeetingData->id)}}" ><i class="fas fa-eye"></i></a></td>
                         <td class="text-center"><a href="{{URL::to('edit_meeting/'.$allMeetingData->id)}}"><i class="far fa-edit"></i></a></td>
                         <td class="text-center"><a href="{{URL::to('add_report/'.$allMeetingData->id)}}"><i class="fas fa-file-alt"></i></a></td>
@@ -96,7 +97,12 @@
 @section('jsCode')
 
 <script type="text/javascript">
-    
+    $("document").ready(function(){
+    setTimeout(function(){
+        $("div.alert").remove();
+    }, 3000 ); // 3 secs
+
+    });
 </script>
 
 @endsection

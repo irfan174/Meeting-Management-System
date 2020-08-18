@@ -14,7 +14,6 @@ class MeetingController extends Controller
     function index(){
 
     	$attendences = User::select('id','name')->get();
-    	//dd($attendences);
         return view('AddNewMeeting', compact('attendences'));
     }
 
@@ -22,7 +21,6 @@ class MeetingController extends Controller
 
 	function AddNewMeeting(Request $request){
 
-		//dd($request);
     	$data = $request->validate([
     		'meeting_name'=> ['required', 'string', 'max:255'],
 			'client_id'=> ['required', 'string',  'max:255'],
@@ -33,20 +31,10 @@ class MeetingController extends Controller
 			'meeting_details'=> ['required', 'string'],
 
 		]);
-		$date = $data['date'];
-		$endTime = $data['end_time'];
-		$formatDate = date('Y-m-d, h:i a', strtotime($date));
-		$formatEndTime = date('h:i a', strtotime($endTime));
-		//dd($formatendTime);
 		if($data){
-			
-			//dd($data['date']);
 			$data['host_id'] = Auth::user()->id;
-			$data['date'] = $formatDate;
-			$data['end_time'] = $formatEndTime;
 			$data['meeting_status'] = 1;
 			$data['attendences'] = json_encode($data['attendences']);
-			//dd($data);
 			Meeting::create($data);
 			return redirect()->back()->with('Success', 'New Meeting data saved successfully');
 		}
@@ -59,15 +47,16 @@ class MeetingController extends Controller
 	//all meetings history view function
 
     function Meetings(){
+
 		$allMeetingData = Meeting::with('user')->get();
-		//dd($allMeetingData);
 		return view('MeetingHistory', compact('allMeetingData'));
     }
 
     //new meetings view function
 
     function NewMeetings(){
-		$allMeetingData = Meeting::whereDate('date', '>=', now())->with('user')->get();
+
+		$allMeetingData = Meeting::whereDate('date', '>=', now())->orderBy('date','asc')->with('user')->get();
 		$jsonData = json_decode($allMeetingData);
 		return view('NewMeetings', compact('allMeetingData'));
     }
@@ -75,12 +64,8 @@ class MeetingController extends Controller
     //a single meeting view function
 
     function ViewMeeting($id){
+
 		$viewData = Meeting::findorfail($id);
-		$startTime = $viewData->date;
-		$endTime = $viewData->end_time;
-		$formatStartTime = date('d/m/Y @ h:i a', strtotime($startTime));
-		$formatEndTime = date('h:i a', strtotime($endTime));
-		//dd($formatEndTime);
 		$attendences= array();
 		foreach (json_decode($viewData->attendences) as $attn_id) {
 		    $attendences[] = User::where('id', $attn_id)->get();
@@ -90,25 +75,23 @@ class MeetingController extends Controller
 			$user_name[]=  $value[0]->name;
 		}
 		$user_name= implode(', ', $user_name);
-		return view('ViewMeeting', compact('viewData', 'user_name', 'formatStartTime', 'formatEndTime'));
+		return view('ViewMeeting', compact('viewData', 'user_name'));
     }
 
     //edit a meeting view function
 
     function EditMeeting($id){
+
 		$editViewData = Meeting::findorfail($id);
 		$meetingStatus = Meeting::select('id','meeting_status')->get();
 		$attendences = User::select('id','name')->get();
-		$attendences2= array();
-
-		//dd($editViewData);
 		return view('EditMeeting', compact('editViewData', 'attendences', 'meetingStatus'));
     }
 
     //update meeting submit function
 
     function UpdateMeeting(Request $request,$id){
-    	//dd($request->all());
+
 		$data = $request->validate([
     		'meeting_name'=> ['required', 'string', 'max:255'],
 			'client_id'=> ['required', 'string',  'max:255'],
@@ -119,22 +102,15 @@ class MeetingController extends Controller
 			'meeting_details'=> ['required', 'string'],
 			'meeting_status'=> ['required', 'int'],
 		]);
-		//dd($data);
-		$date = $data['date'];
-		$endTime = $data['end_time'];
-		$formatDate = date('Y-m-d, h:i a', strtotime($date));
-		$formatEndTime = date('h:i a', strtotime($endTime));
+		
 		if($data){
-			$data['date'] = $formatDate;
-			$data['end_time'] = $formatEndTime;
 			$data['attendences'] = json_encode($data['attendences']);
-			//$data['meeting_status'] = json_encode($data['meeting_status']);
 			$updateMeeting = Meeting::where('id',$id)->update($data);
 			if($updateMeeting){
-        	session()->flash('Success','Meeting has edited successfully.');
+        	session()->flash('Success','Meeting has updated successfully.');
         	}
         	else{
-        		session()->flash('Error','Meeting cannot be edited!!');
+        		session()->flash('Error','Meeting cannot be updated!!');
         	}
         	return redirect()->back();
 		}
@@ -146,8 +122,8 @@ class MeetingController extends Controller
 
     //delete meeting function
 
-    public function DeleteMeeting($id)
-    {
+    public function DeleteMeeting($id){
+
         $softDelete = Meeting::destroy($id);
         if($softDelete){
         	session()->flash('Success','Meeting has removed successfully.');
@@ -156,7 +132,7 @@ class MeetingController extends Controller
         	session()->flash('Error','Meeting cannot be removed!!');
         }
         return redirect()->back();
-        
+
     }
 
     //add meeting report view function
@@ -164,21 +140,16 @@ class MeetingController extends Controller
 	function AddMeetingReport($id){
 
     	$meetingReportData = Meeting::findorfail($id);
-    	/*echo "<pre>";
-		print_r($meetingReportData);
-		exit();*/
       	return view('AddReport', compact('meetingReportData'));
     }
 
     //add meeting report submit function
 
     function UploadMeetingReport(Request $request,$id){
-     	//return $request->meeting_discussion;
      	$data = $request->validate([
     		'meeting_discussion'=> ['nullable', 'string'],
     		'meeting_discussion_date'=> ['nullable', 'string'],
 		]);
-		//dd($data);
 		$meeting_report_files = $request->file('meeting_report_files');
 		$filname = "";
 		if($meeting_report_files !== null){
@@ -219,18 +190,16 @@ class MeetingController extends Controller
     public function IndividualMeetingsData($id)
     {
     	$allMeetingData = Meeting::with('user')->get();
-    	//dd($allMeetingData->all());
     	$items = strval($id);
-    	//dd($items);
     	$jsonData = json_encode($items);
-    	//dd($jsonData);
     	$searchIndividualData = Meeting::where('host_id',$id)
     				->orWhere('attendences','LIKE',"%$jsonData%")
 			    	->whereDate('date', '>=', date('Y-m-d'))->orderBy('date','asc')
-			    	->get();
-    	//dd($searchIndividualData->all());
+			    	->get();			
 
-        return view('GetIndividialmeetingData', compact('searchIndividualData'));
+        $getName= User::find($id);
+
+        return view('GetIndividialmeetingData', compact('searchIndividualData','getName'));
     }
 
 
@@ -240,7 +209,6 @@ class MeetingController extends Controller
 
     	$events = [];
 		$data = Meeting::all();
-//		dd($allMeetingData);
 		if($data->count()) {
             foreach ($data as $key => $value) {
                 $events[] = Calendar::event(
@@ -256,24 +224,10 @@ class MeetingController extends Controller
 	                ]
                 );
             }
-            //dd($events);
+            
         }
         $calendar = Calendar::addEvents($events);
-        //dd($calendar);
 		return view('EventCalender',compact(['calendar']));
-    }
-
-
-
-
-    //test function
-	function indexMeetingHistory(){
-
-      return view('MeetingHistory');
-    }
-    //test functions
-    function register(){
-        return view('Register');
     }
 }
 
